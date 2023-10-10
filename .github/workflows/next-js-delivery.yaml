@@ -4,17 +4,9 @@ on:
   push:
     branches: [ main ]
 
-env:
-  REGISTRY: ghcr.io
-  ORGANISATION: vinr-eu
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    permissions:
-      packages: write
-      contents: read
 
     steps:
       - uses: actions/checkout@v3
@@ -22,7 +14,7 @@ jobs:
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -32,4 +24,4 @@ jobs:
           file: Dockerfile
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.ORGANISATION }}/next-js-tailwind-css:latest
+          tags: ghcr.io/richygreat/next-js-tailwind-css:latest
